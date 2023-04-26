@@ -37,17 +37,24 @@ async function initGame() {
 }
 
 function showQuestion(question) {
-    questionElement.textContent = question.question;
+    questionElement.textContent = decodeHtmlEntities(question.question);
     const correctAnswerIndex = Math.floor(Math.random() * 4);
     const incorrectAnswers = [...question.incorrect_answers];
 
     answerButtons.forEach((button, index) => {
         if (index === correctAnswerIndex) {
-            button.textContent = question.correct_answer;
+            button.textContent = decodeHtmlEntities(question.correct_answer);
         } else {
-            button.textContent = incorrectAnswers.shift();
+            button.textContent = decodeHtmlEntities(incorrectAnswers.shift());
         }
     });
+}
+
+
+function decodeHtmlEntities(text) {
+    const textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+    return textArea.value;
 }
 
 function revealNextCharacter() {
