@@ -25,4 +25,40 @@ async function initGame() {
                 revealNextCharacter();
             }
 
-            // Move on to the next question, or end the game if
+            // Move on to the next question, or end the game if there are no more questions
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(questions[currentQuestionIndex]);
+            } else {
+                endGame();
+            }
+        });
+    });
+}
+
+function showQuestion(question) {
+    questionElement.textContent = question.question;
+    const correctAnswerIndex = Math.floor(Math.random() * 4);
+    const incorrectAnswers = [...question.incorrect_answers];
+
+    answerButtons.forEach((button, index) => {
+        if (index === correctAnswerIndex) {
+            button.textContent = question.correct_answer;
+        } else {
+            button.textContent = incorrectAnswers.shift();
+        }
+    });
+}
+
+function revealNextCharacter() {
+    const nextCharacter = hiddenMessage[revealedMessage.length];
+    revealedMessage.push(nextCharacter);
+    messageElement.textContent = revealedMessage.join('');
+}
+
+function endGame() {
+    questionElement.textContent = "Game over!";
+    answerButtons.forEach(button => {
+        button.disabled = true;
+    });
+}
