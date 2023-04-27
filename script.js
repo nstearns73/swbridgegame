@@ -1,15 +1,19 @@
-const questionElement = document.getElementById('question');
-const answerButtons = document.querySelectorAll('.answer-button');
-const messageElement = document.getElementById('message');
-const totalQuestions = 15; // Set this to the desired number of questions
-const hiddenMessage = "TheCodeis6923";
-const revealedMessage = [];
+document.addEventListener('DOMContentLoaded', () => {
+    const questionElement = document.getElementById('question');
+    const answerButtons = document.querySelectorAll('.answer-button');
+    const messageElement = document.getElementById('message');
+    const totalQuestions = 15; // Set this to the desired number of questions
+    const hiddenMessage = "TheCodeis6923";
+    const revealedMessage = [];
 
-// Declare the questionsLeftElement variable outside the initGame function
-const questionsLeftElement = document.getElementById('questions-left');
+    // Declare the questionsLeftElement variable outside the initGame function
+    const questionsLeftElement = document.getElementById('questions-left');
 
-// Initialize the game
-initGame();
+    // Initialize the game
+    initGame();
+
+
+
 
 async function initGame() {
     const response = await fetch(`https://opentdb.com/api.php?amount=${totalQuestions}&type=multiple`);
@@ -80,3 +84,4 @@ function endGame() {
         button.disabled = true;
     });
 }
+});
