@@ -17,24 +17,27 @@ async function initGame() {
     let currentQuestionIndex = 0;
     showQuestion(questions[currentQuestionIndex]);
 
-    // Add event listeners to answer buttons
-    answerButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            const isCorrect = button.textContent === questions[currentQuestionIndex].correct_answer;
-            if (isCorrect) {
-                revealNextCharacter();
-            }
+// Add event listeners to answer buttons
+answerButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        const isCorrect = button.textContent === questions[currentQuestionIndex].correct_answer;
+        if (isCorrect) {
+            playDingSound(); // Play the ding sound for correct answers
+            revealNextCharacter();
+        } else {
+            playBuzzSound(); // Play the buzz sound for incorrect answers
+        }
 
-            // Move on to the next question, or end the game if the player has answered the specified number of questions
-            currentQuestionIndex++;
-            if (currentQuestionIndex < totalQuestions) {
-                showQuestion(questions[currentQuestionIndex]);
-            } else {
-                endGame();
-            }
-        });
+        // Move on to the next question, or end the game if the player has answered the specified number of questions
+        currentQuestionIndex++;
+        if (currentQuestionIndex < totalQuestions) {
+            showQuestion(questions[currentQuestionIndex]);
+        } else {
+            endGame();
+        }
     });
-}
+});
+
 
 
 function showQuestion(question) {
@@ -49,6 +52,18 @@ function showQuestion(question) {
             button.textContent = decodeHtmlEntities(incorrectAnswers.shift());
         }
     });
+}
+
+function playBuzzSound() {
+    const buzzSound = document.getElementById('buzz-sound');
+    buzzSound.currentTime = 0;
+    buzzSound.play();
+}
+
+function playDingSound() {
+    const dingSound = document.getElementById('ding-sound');
+    dingSound.currentTime = 0;
+    dingSound.play();
 }
 
 
