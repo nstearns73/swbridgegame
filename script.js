@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function endGame() {
-        questionElement.textContent = "Game over!";
+        questionElement.textContent = "Sorry, Game Over! Refresh to Try Again!";
         answerButtons.forEach(button => {
             button.disabled = true;
         });
