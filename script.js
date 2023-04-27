@@ -36,8 +36,8 @@ answerButtons.forEach((button, index) => {
             endGame();
         }
     });
-});
-
+ });
+}
 
 
 function showQuestion(question) {
