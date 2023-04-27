@@ -17,27 +17,26 @@ async function initGame() {
     let currentQuestionIndex = 0;
     showQuestion(questions[currentQuestionIndex]);
 
+    // Set the initial value for the number of questions left
+    const questionsLeftElement = document.getElementById('questions-left');
+    questionsLeftElement.textContent = totalQuestions - currentQuestionIndex;
+
 // Add event listeners to answer buttons
 answerButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
-        const isCorrect = button.textContent === questions[currentQuestionIndex].correct_answer;
-        if (isCorrect) {
-            playDingSound(); // Play the ding sound for correct answers
-            revealNextCharacter();
-        } else {
-            playBuzzSound(); // Play the buzz sound for incorrect answers
-        }
+        // ...
 
         // Move on to the next question, or end the game if the player has answered the specified number of questions
         currentQuestionIndex++;
         if (currentQuestionIndex < totalQuestions) {
             showQuestion(questions[currentQuestionIndex]);
+            questionsLeftElement.textContent = totalQuestions - currentQuestionIndex; // Update the number of questions left
         } else {
             endGame();
         }
     });
- });
-}
+});
+
 
 
 function showQuestion(question) {
