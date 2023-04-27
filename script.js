@@ -1,15 +1,15 @@
 const questionElement = document.getElementById('question');
 const answerButtons = document.querySelectorAll('.answer-button');
 const messageElement = document.getElementById('message');
-const hiddenMessage = "CONGRATULATIONS! YOU DID IT!";
+const totalQuestions = 15; // Set this to the desired number of questions
+const hiddenMessage = "TheCodeis6923";
 const revealedMessage = [];
 
 // Initialize the game
 initGame();
 
 async function initGame() {
-    // Fetch trivia questions from an API (e.g., Open Trivia Database)
-    const response = await fetch('https://opentdb.com/api.php?amount=10&type=multiple');
+    const response = await fetch(`https://opentdb.com/api.php?amount=${totalQuestions}&type=multiple`);
     const data = await response.json();
     const questions = data.results;
 
@@ -25,9 +25,9 @@ async function initGame() {
                 revealNextCharacter();
             }
 
-            // Move on to the next question, or end the game if there are no more questions
+            // Move on to the next question, or end the game if the player has answered the specified number of questions
             currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
+            if (currentQuestionIndex < totalQuestions) {
                 showQuestion(questions[currentQuestionIndex]);
             } else {
                 endGame();
@@ -35,6 +35,7 @@ async function initGame() {
         });
     });
 }
+
 
 function showQuestion(question) {
     questionElement.textContent = decodeHtmlEntities(question.question);
